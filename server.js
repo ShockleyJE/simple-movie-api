@@ -1,62 +1,44 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const PORT = 8000
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const PORT = 8000;
 
-app.use(cors())
+app.use(cors());
 
-let rappers = {
-    '21 savage': {
-        'age': 28,
-        'birthName': 'Shéyaa Bin Abraham-Joseph',
-        'birthdate': '22 October 1992', 
-        'birthLocation': 'London, England',
-        'origin': 'Atlanta, Georgia',
-        'genre': 'hip hop, trap, rap, horrorcore',
-        'occupation': 'rapper, songwriter, record producer',
-        'yearsActive': '2013-present',
-        'labels': 'Epic, Slaughter Gang',
-        'children': 3
-    },
-    'chance the rapper':{
-        'age': 28,
-        'birthName': 'Chancelor Jonathan Bennett',
-        'birthdate': 'April 16, 1993', 
-        'birthLocation': 'London, England',
-        'origin': 'Chicago, Illinois',
-        'genre': 'hip hop, alternative hip hop, r & b',
-        'occupation': 'rapper, singer, song writer, record producer, activist, actor, philanthropist',
-        'yearsActive': '2011-present',
-        'labels': 'none',
-        'children': 0
-    },
-    'unknown':{
-        'age': 'unknown',
-        'birthName': 'unknown',
-        'birthdate': 'unknown', 
-        'birthLocation': 'unknown',
-        'origin': 'unknown',
-        'genre': 'unknown',
-        'occupation': 'unknown',
-        'yearsActive': 'unknown',
-        'labels': 'unknown',
-        'children': 'unknown'
-    }
-}
+let movies = {
+  1: {
+    name: "21 jump street",
+    release_year: 2012,
+    directors: ["Phil Lord", "Christopher Miller"],
+    stars: ["Jonah Hill", "Channing Tatum", "Ice Cube"],
+  },
+  2: {
+    name: "House",
+    release_year: 1977,
+    directors: ["Nobuhiko Ôbayashi"],
+    stars: ["Kimiko Ikegami", "Miki Jinbo", "Kumiko Ohba"],
+  },
+  unknown: {
+    name: "unknown",
+    release_year: 0,
+    directors: ["unknown"],
+    stars: ["unknown"],
+  },
+};
 
-app.get('/', (request, response) => {
-    response.sendFile(__dirname + '/index.html')
-})
+app.get("/", (request, response) => {
+  response.sendFile(__dirname + "/index.html");
+});
 
-app.get('/api/:name', (request, response) => {
-    const rapperName = request.params.name.toLowerCase()
-    if(rappers[rapperName]){
-        response.json(rappers[rapperName])
-    }else{
-        response.json(rappers['unknown'])
-    }
-})
+app.get("/api/:id", (request, response) => {
+  const id = parseInt(request.params.name);
+  if (movies[id]) {
+    response.json(movies[id]);
+  } else {
+    response.json(movies["unknown"]);
+  }
+});
 
 app.listen(process.env.PORT || PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
